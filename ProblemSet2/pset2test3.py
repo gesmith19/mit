@@ -55,3 +55,4 @@ while (newbalance !=0.0 and count < 15):
 #    newbalance = balance
     count += 1
     print 'count ' + str(count)
+print 'Lowest Payment: ' + str(monthlyPayment)
