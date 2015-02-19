@@ -104,6 +104,7 @@ def buildCoder(shift):
     
     uc = string.ascii_uppercase
     lc = string.ascii_lowercase
+
     
     for i in range(len(uc)):    
         d[uc[i]]=uc[(i+shift)%26]
@@ -111,7 +112,7 @@ def buildCoder(shift):
     for j in range(len(uc), len(lc) + len(uc)):
         d[lc[j%26]] = lc[(j+shift)%26]
         
-    return d
+    return d 
 
 def applyCoder(text, coder):
     """
@@ -121,16 +122,15 @@ def applyCoder(text, coder):
     coder: dict with mappings of characters to shifted characters
     returns: text after mapping coder chars to original text
     """
+    ### TODO.
     res = ''
-    
     for ch in text:
         if coder.get(ch,0) > 0:
             res += coder[ch]
         else:
             res += ch
-            
     return res       
-
+    
 def applyShift(text, shift):
     """
     Given a text, returns a new text Caesar shifted by the given shift
@@ -144,10 +144,8 @@ def applyShift(text, shift):
     """
     ### TODO.
     ### HINT: This is a wrapper function.
-    
-
     coder = buildCoder(shift)
-    return applyCoder(text,coder)   
+    return applyCoder(text,coder)    
 #
 # Problem 2: Decryption
 #
@@ -159,8 +157,25 @@ def findBestShift(wordList, text):
     returns: 0 <= int < 26
     """
     ### TODO
-    return "Not yet implemented." # Remove this comment when you code the function
 
+    maxWords = 0
+    bestShift = 0
+     
+    # looparound all possible shifts
+    for i in range(26):
+        shifted = applyShift(text,i)
+        words = shifted.split(' ')
+        count = 0
+        for w in words:
+            if isWord(wordList, w):
+                count += 1
+        if count > maxWords:
+            maxWords = count
+            bestShift = i
+    return bestShift           
+        
+        
+        
 def decryptStory():
     """
     Using the methods you created in this problem set,
@@ -171,8 +186,12 @@ def decryptStory():
     returns: string - story in plain text
     """
     ### TODO.
-    return "Not yet implemented." # Remove this comment when you code the function
 
+    wordList = loadWords()
+    text = getStoryString()
+    bestShift = findBestShift(wordList, text)
+    return applyShift(getStoryString(), bestShift) 
+      
 #
 # Build data structures used for entire session and run encryption
 #
