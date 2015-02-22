@@ -246,7 +246,7 @@ def readTriggerConfig(filename):
     that correspond to the rules set
     in the file filename
     """
-
+    # print 'readTriggerConfig'
     # Here's some code that we give you
     # to read in the file and eliminate
     # blank lines and comments
@@ -257,7 +257,7 @@ def readTriggerConfig(filename):
         if len(line) == 0 or line[0] == '#':
             continue
         lines.append(line)
-
+    # print lines
     triggers = []
     triggerMap = {}
 
@@ -276,7 +276,7 @@ def readTriggerConfig(filename):
         else:
             for name in linesplit[1:]:
                 triggers.append(triggerMap[name])
-
+    # print triggers
     return triggers
     
 import thread
@@ -289,15 +289,15 @@ def main_thread(master):
     # this with something more configurable in Problem 11
     try:
         # These will probably generate a few hits...
-        t1 = TitleTrigger("Obama")
-        t2 = SubjectTrigger("Romney")
-        t3 = PhraseTrigger("Election")
-        t4 = OrTrigger(t2, t3)
-        triggerlist = [t1, t4]
+        #t1 = TitleTrigger("Oscars")
+        #t2 = SubjectTrigger("Obama")
+        #t3 = PhraseTrigger("Election")
+       #t4 = OrTrigger(t2, t3)
+        #triggerlist = [t1, t4]
         
         # TODO: Problem 11
         # After implementing makeTrigger, uncomment the line below:
-        # triggerlist = readTriggerConfig("triggers.txt")
+        triggerlist = readTriggerConfig("triggers.txt")
 
         # **** from here down is about drawing ****
         frame = Frame(master)
